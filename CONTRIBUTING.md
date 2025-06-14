@@ -55,17 +55,20 @@ npm run format
 ### 提交代码
 
 1. 确保所有测试通过：
+
    ```bash
    npm test
    ```
 
 2. 确保代码通过检查：
+
    ```bash
    npm run lint
    npm run typecheck
    ```
 
 3. 格式化代码：
+
    ```bash
    npm run format
    ```
@@ -95,6 +98,7 @@ npm run format
 请使用 [Bug Report 模板](https://github.com/yourusername/felix-utils/issues/new?template=bug_report.md) 创建 issue。
 
 包含以下信息：
+
 - 清晰的问题描述
 - 重现步骤
 - 期望行为
@@ -106,6 +110,7 @@ npm run format
 请使用 [Feature Request 模板](https://github.com/yourusername/felix-utils/issues/new?template=feature_request.md) 创建 issue。
 
 包含以下信息：
+
 - 功能描述
 - 使用场景
 - 可能的实现方案
@@ -114,6 +119,7 @@ npm run format
 ### 📖 改进文档
 
 文档改进包括：
+
 - README 更新
 - API 文档完善
 - 示例代码添加
@@ -161,12 +167,14 @@ describe('isEmptyArray', () => {
 ## Pull Request 流程
 
 1. **创建 PR** 前确保：
+
    - 所有测试通过
    - 代码通过 ESLint 检查
    - 代码格式符合 Prettier 规范
    - 有适当的测试覆盖
 
 2. **PR 描述** 应包含：
+
    - 更改内容概述
    - 关闭的 issue 编号（如有）
    - 测试说明
@@ -204,4 +212,4 @@ describe('isEmptyArray', () => {
 - 在现有 Issue 或 PR 中评论
 - 通过邮件联系维护者
 
-感谢您的贡献！ 🎉 
+感谢您的贡献！ 🎉

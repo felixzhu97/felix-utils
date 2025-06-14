@@ -6,7 +6,7 @@
 ![npm version](https://img.shields.io/npm/v/felix-utils.svg)
 ![npm downloads](https://img.shields.io/npm/dm/felix-utils.svg)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/felix-utils/ci.yml?branch=main&label=Build%20and%20Test)
-![TypeScript](https://img.shields.io/badge/(Compiler)%20TypeScript-passing-green.svg)
+![TypeScript](<https://img.shields.io/badge/(Compiler)%20TypeScript-passing-green.svg>)
 ![Bundle Size](https://img.shields.io/bundlephobia/minzip/felix-utils)
 ![Test Coverage](https://img.shields.io/codecov/c/github/yourusername/felix-utils)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
@@ -42,14 +42,14 @@ yarn add felix-utils
 
 ```javascript
 // 导入所有工具
-import * as felixUtils from "felix-utils";
+import * as felixUtils from 'felix-utils';
 
 // 导入特定模块
-import { formatDate, debounce, deepClone } from "felix-utils";
+import { formatDate, debounce, deepClone } from 'felix-utils';
 
 // 按需导入（推荐）
-import { formatDate } from "felix-utils/date";
-import { debounce } from "felix-utils/utils";
+import { formatDate } from 'felix-utils/date';
+import { debounce } from 'felix-utils/utils';
 ```
 
 ## 功能模块
@@ -62,13 +62,13 @@ import {
   daysBetween,
   isToday,
   getRelativeTime,
-} from "felix-utils/date";
+} from 'felix-utils/date';
 
 // 格式化日期
-formatDate(new Date(), "YYYY-MM-DD HH:mm:ss"); // '2023-12-25 15:30:45'
+formatDate(new Date(), 'YYYY-MM-DD HH:mm:ss'); // '2023-12-25 15:30:45'
 
 // 计算日期差
-daysBetween("2023-12-25", "2023-12-20"); // 5
+daysBetween('2023-12-25', '2023-12-20'); // 5
 
 // 判断是否为今天
 isToday(new Date()); // true
@@ -80,29 +80,29 @@ getRelativeTime(new Date(Date.now() - 60000)); // '1分钟前'
 ### 🛠️ 对象工具 (Object)
 
 ```javascript
-import { deepClone, get, set, pick, omit } from "felix-utils/utils";
+import { deepClone, get, set, pick, omit } from 'felix-utils/utils';
 
 // 深拷贝
 const cloned = deepClone({ a: { b: 1 } });
 
 // 获取嵌套属性
-get({ a: { b: 1 } }, "a.b"); // 1
+get({ a: { b: 1 } }, 'a.b'); // 1
 
 // 设置嵌套属性
 const obj = {};
-set(obj, "a.b.c", "value");
+set(obj, 'a.b.c', 'value');
 
 // 选择属性
-pick({ a: 1, b: 2, c: 3 }, ["a", "b"]); // { a: 1, b: 2 }
+pick({ a: 1, b: 2, c: 3 }, ['a', 'b']); // { a: 1, b: 2 }
 
 // 排除属性
-omit({ a: 1, b: 2, c: 3 }, ["a"]); // { b: 2, c: 3 }
+omit({ a: 1, b: 2, c: 3 }, ['a']); // { b: 2, c: 3 }
 ```
 
 ### 📋 数组工具 (Array)
 
 ```javascript
-import { unique, chunk, flatten, groupBy } from "felix-utils/utils";
+import { unique, chunk, flatten, groupBy } from 'felix-utils/utils';
 
 // 数组去重
 unique([1, 2, 2, 3]); // [1, 2, 3]
@@ -118,10 +118,10 @@ flatten([
 
 // 按属性分组
 const users = [
-  { name: "Alice", age: 25 },
-  { name: "Bob", age: 25 },
+  { name: 'Alice', age: 25 },
+  { name: 'Bob', age: 25 },
 ];
-groupBy(users, "age"); // { '25': [{ name: 'Alice', age: 25 }, { name: 'Bob', age: 25 }] }
+groupBy(users, 'age'); // { '25': [{ name: 'Alice', age: 25 }, { name: 'Bob', age: 25 }] }
 ```
 
 ### 🔤 字符串工具 (String)
@@ -132,16 +132,16 @@ import {
   kebabCase,
   truncate,
   randomString,
-} from "felix-utils/utils";
+} from 'felix-utils/utils';
 
 // 驼峰命名
-camelCase("hello-world"); // 'helloWorld'
+camelCase('hello-world'); // 'helloWorld'
 
 // 短横线命名
-kebabCase("helloWorld"); // 'hello-world'
+kebabCase('helloWorld'); // 'hello-world'
 
 // 字符串截取
-truncate("Hello World", 5); // 'Hello...'
+truncate('Hello World', 5); // 'Hello...'
 
 // 随机字符串
 randomString(8); // 'aBc12XyZ'
@@ -150,25 +150,25 @@ randomString(8); // 'aBc12XyZ'
 ### 🔧 函数工具 (Function)
 
 ```javascript
-import { debounce, throttle, memoize, retry } from "felix-utils/utils";
+import { debounce, throttle, memoize, retry } from 'felix-utils/utils';
 
 // 防抖
-const debouncedFn = debounce(() => console.log("执行"), 300);
+const debouncedFn = debounce(() => console.log('执行'), 300);
 
 // 节流
-const throttledFn = throttle(() => console.log("执行"), 300);
+const throttledFn = throttle(() => console.log('执行'), 300);
 
 // 缓存
 const memoizedFn = memoize((x, y) => x + y);
 
 // 重试
-retry(() => fetch("/api/data"), 3, 1000);
+retry(() => fetch('/api/data'), 3, 1000);
 ```
 
 ### 🔢 数值工具 (Number)
 
 ```javascript
-import { random, formatThousands, clamp, average } from "felix-utils/utils";
+import { random, formatThousands, clamp, average } from 'felix-utils/utils';
 
 // 随机数
 random(1, 10); // 1-10之间的随机整数
@@ -186,19 +186,19 @@ average([1, 2, 3, 4, 5]); // 3
 ### ✅ 验证工具 (Validate)
 
 ```javascript
-import { isEmail, isPhone, isIdCard, isUrl } from "felix-utils/utils";
+import { isEmail, isPhone, isIdCard, isUrl } from 'felix-utils/utils';
 
 // 验证邮箱
-isEmail("user@example.com"); // true
+isEmail('user@example.com'); // true
 
 // 验证手机号
-isPhone("13800138000"); // true
+isPhone('13800138000'); // true
 
 // 验证身份证
-isIdCard("110101199001011234"); // true
+isIdCard('110101199001011234'); // true
 
 // 验证URL
-isUrl("https://www.example.com"); // true
+isUrl('https://www.example.com'); // true
 ```
 
 ## API 文档
