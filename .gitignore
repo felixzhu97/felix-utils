@@ -43,5 +43,21 @@ pids
 
 # Temporary folders
 tmp/
-temp/ 
+temp/
+
+# Editor and IDE files
+*.code-workspace
+.history/
+*.sublime-project
+*.sublime-workspace
+
+# Bundle analysis
+bundle-analyzer-report.html
+
+# CI/CD
+.nyc_output
+
+# Miscellaneous
+*.tgz
+*.tar.gz 
 

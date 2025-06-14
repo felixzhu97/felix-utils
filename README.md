@@ -1,5 +1,18 @@
 # Felix Utils
 
+<div align="center">
+
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![npm version](https://img.shields.io/npm/v/felix-utils.svg)
+![npm downloads](https://img.shields.io/npm/dm/felix-utils.svg)
+![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/felix-utils/ci.yml?branch=main&label=Build%20and%20Test)
+![TypeScript](https://img.shields.io/badge/(Compiler)%20TypeScript-passing-green.svg)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/felix-utils)
+![Test Coverage](https://img.shields.io/codecov/c/github/yourusername/felix-utils)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+
+</div>
+
 一个实用的 JavaScript/TypeScript 工具库，包含常用的工具方法和日期处理功能。
 
 ## 特性
@@ -210,21 +223,84 @@ isUrl("https://www.example.com"); // true
 # 安装依赖
 npm install
 
-# 开发模式构建
+# 开发模式构建 (监听文件变化)
 npm run dev
 
 # 运行测试
 npm test
 
-# 构建
-npm run build
+# 运行测试并生成覆盖率报告
+npm run test:coverage
+
+# TypeScript 类型检查
+npm run typecheck
 
 # 代码检查
 npm run lint
 
-# 发布
+# 自动修复代码格式问题
+npm run lint:fix
+
+# 格式化代码
+npm run format
+
+# 检查代码格式
+npm run format:check
+
+# 构建生产版本
+npm run build
+
+# 清理构建文件
+npm run clean
+
+# 检查打包大小
+npm run size-check
+```
+
+## 发布
+
+### 自动发布 (推荐)
+
+使用内置的发布脚本：
+
+```bash
+# 发布补丁版本 (1.0.0 -> 1.0.1)
+npm run release
+
+# 发布次要版本 (1.0.0 -> 1.1.0)
+npm run release:minor
+
+# 发布主要版本 (1.0.0 -> 2.0.0)
+npm run release:major
+```
+
+### 手动发布
+
+```bash
+# 1. 确保所有测试通过
+npm test
+
+# 2. 构建项目
+npm run build
+
+# 3. 更新版本号
+npm version patch|minor|major
+
+# 4. 推送到 GitHub
+git push && git push --tags
+
+# 5. 发布到 npm
 npm publish
 ```
+
+### CI/CD
+
+项目配置了 GitHub Actions 自动化流程：
+
+- **持续集成**: 每次推送和 PR 时自动运行测试
+- **类型检查**: TypeScript 编译验证
+- **自动发布**: 创建 tag 时自动发布到 npm
+- **代码覆盖率**: 自动生成并上传测试覆盖率报告
 
 ## 贡献
 
