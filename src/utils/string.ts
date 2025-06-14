@@ -15,8 +15,8 @@ export function capitalize(str: string): string {
  */
 export function camelCase(str: string): string {
   return str
-    .replace(/[-_\s]+(.)?/g, (_, char) => (char ? char.toUpperCase() : ""))
-    .replace(/^[A-Z]/, (char) => char.toLowerCase());
+    .replace(/[-_\s]+(.)?/g, (_, char) => (char ? char.toUpperCase() : ''))
+    .replace(/^[A-Z]/, char => char.toLowerCase());
 }
 
 /**
@@ -26,8 +26,8 @@ export function camelCase(str: string): string {
  */
 export function kebabCase(str: string): string {
   return str
-    .replace(/([a-z])([A-Z])/g, "$1-$2")
-    .replace(/[\s_]+/g, "-")
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[\s_]+/g, '-')
     .toLowerCase();
 }
 
@@ -38,8 +38,8 @@ export function kebabCase(str: string): string {
  */
 export function snakeCase(str: string): string {
   return str
-    .replace(/([a-z])([A-Z])/g, "$1_$2")
-    .replace(/[\s-]+/g, "_")
+    .replace(/([a-z])([A-Z])/g, '$1_$2')
+    .replace(/[\s-]+/g, '_')
     .toLowerCase();
 }
 
@@ -50,8 +50,8 @@ export function snakeCase(str: string): string {
  */
 export function pascalCase(str: string): string {
   return str
-    .replace(/[-_\s]+(.)?/g, (_, char) => (char ? char.toUpperCase() : ""))
-    .replace(/^[a-z]/, (char) => char.toUpperCase());
+    .replace(/[-_\s]+(.)?/g, (_, char) => (char ? char.toUpperCase() : ''))
+    .replace(/^[a-z]/, char => char.toUpperCase());
 }
 
 /**
@@ -61,7 +61,7 @@ export function pascalCase(str: string): string {
  * @param suffix 后缀
  * @returns 截取后的字符串
  */
-export function truncate(str: string, length: number, suffix = "..."): string {
+export function truncate(str: string, length: number, suffix = '...'): string {
   if (!str || str.length <= length) return str;
   return str.slice(0, length) + suffix;
 }
@@ -75,7 +75,7 @@ export function truncate(str: string, length: number, suffix = "..."): string {
 export function trim(str: string, chars?: string): string {
   if (!chars) return str.trim();
 
-  const charSet = new Set(chars.split(""));
+  const charSet = new Set(chars.split(''));
   let start = 0;
   let end = str.length - 1;
 
@@ -101,19 +101,21 @@ export function trim(str: string, chars?: string): string {
 export function pad(
   str: string,
   length: number,
-  chars = " ",
-  type: "start" | "end" | "both" = "start"
+  chars = ' ',
+  type: 'start' | 'end' | 'both' = 'start'
 ): string {
   if (str.length >= length) return str;
 
   const padLength = length - str.length;
 
   switch (type) {
-    case "start":
+    case 'start': {
       return chars.repeat(Math.ceil(padLength)).slice(0, padLength) + str;
-    case "end":
+    }
+    case 'end': {
       return str + chars.repeat(Math.ceil(padLength)).slice(0, padLength);
-    case "both":
+    }
+    case 'both': {
       const leftPad = Math.floor(padLength / 2);
       const rightPad = padLength - leftPad;
       return (
@@ -121,6 +123,7 @@ export function pad(
         str +
         chars.repeat(Math.ceil(rightPad)).slice(0, rightPad)
       );
+    }
     default:
       return str;
   }
@@ -134,9 +137,9 @@ export function pad(
  */
 export function randomString(
   length: number,
-  chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 ): string {
-  let result = "";
+  let result = '';
   for (let i = 0; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
@@ -162,14 +165,14 @@ export function template(template: string, data: Record<string, any>): string {
  */
 export function escapeHtml(str: string): string {
   const htmlEscapes: Record<string, string> = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;",
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
   };
 
-  return str.replace(/[&<>"']/g, (char) => htmlEscapes[char]);
+  return str.replace(/[&<>"']/g, char => htmlEscapes[char]);
 }
 
 /**
@@ -179,16 +182,16 @@ export function escapeHtml(str: string): string {
  */
 export function unescapeHtml(str: string): string {
   const htmlUnescapes: Record<string, string> = {
-    "&amp;": "&",
-    "&lt;": "<",
-    "&gt;": ">",
-    "&quot;": '"',
-    "&#39;": "'",
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#39;': "'",
   };
 
   return str.replace(
     /&(?:amp|lt|gt|quot|#39);/g,
-    (entity) => htmlUnescapes[entity]
+    entity => htmlUnescapes[entity]
   );
 }
 

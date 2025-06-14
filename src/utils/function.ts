@@ -1,4 +1,4 @@
-import type { DebounceOptions, ThrottleOptions } from "../types";
+import type { DebounceOptions, ThrottleOptions } from '../types';
 
 /**
  * 防抖函数
@@ -16,13 +16,10 @@ export function debounce<T extends (...args: any[]) => any>(
   let lastArgs: Parameters<T> | null = null;
   let lastThis: any;
   let result: ReturnType<T>;
-  let leading = false;
-  let maxTimeoutId: ReturnType<typeof setTimeout> | null = null;
-  let lastCallTime = 0;
 
-  const { leading: leadingOption = false, trailing = true, maxWait } = options;
+  const { leading: leadingOption = false, trailing = true } = options;
 
-  const invokeFunc = (_time: number): ReturnType<T> => {
+  const invokeFunc = (): ReturnType<T> => {
     const args = lastArgs!;
     const thisArg = lastThis;
 
@@ -32,53 +29,15 @@ export function debounce<T extends (...args: any[]) => any>(
     return result;
   };
 
-  const startTimer = (
-    pendingFunc: () => void,
-    wait: number
-  ): ReturnType<typeof setTimeout> => {
-    return setTimeout(pendingFunc, wait);
-  };
-
-  const cancelTimer = (id: ReturnType<typeof setTimeout>): void => {
-    clearTimeout(id);
-  };
-
-  const leadingEdge = (time: number): ReturnType<T> => {
-    leading = true;
-    timeoutId = startTimer(timerExpired, wait);
-    return leadingOption ? invokeFunc(time) : result;
-  };
-
-  const remainingWait = (time: number): number => {
-    const timeSinceLastCall = time - lastCallTime;
-    const timeWaiting = wait - timeSinceLastCall;
-    return maxWait !== undefined
-      ? Math.min(timeWaiting, maxWait - (time - lastCallTime))
-      : timeWaiting;
-  };
-
-  const shouldInvoke = (time: number): boolean => {
-    const timeSinceLastCall = time - lastCallTime;
-    return (
-      lastCallTime === 0 ||
-      timeSinceLastCall >= wait ||
-      timeSinceLastCall < 0 ||
-      (maxWait !== undefined && time - lastCallTime >= maxWait)
-    );
+  const leadingEdge = (): ReturnType<T> => {
+    timeoutId = setTimeout(timerExpired, wait);
+    return leadingOption ? invokeFunc() : result;
   };
 
   const timerExpired = (): ReturnType<T> | void => {
-    const time = Date.now();
-    if (shouldInvoke(time)) {
-      return trailingEdge(time);
-    }
-    timeoutId = startTimer(timerExpired, remainingWait(time));
-  };
-
-  const trailingEdge = (time: number): ReturnType<T> => {
     timeoutId = null;
     if (trailing && lastArgs) {
-      return invokeFunc(time);
+      return invokeFunc();
     }
     lastArgs = null;
     lastThis = null;
@@ -87,46 +46,33 @@ export function debounce<T extends (...args: any[]) => any>(
 
   const cancel = (): void => {
     if (timeoutId !== null) {
-      cancelTimer(timeoutId);
+      clearTimeout(timeoutId);
     }
-    if (maxTimeoutId !== null) {
-      cancelTimer(maxTimeoutId);
-    }
-    leading = false;
     lastArgs = null;
-    lastCallTime = 0;
     lastThis = null;
-    maxTimeoutId = null;
     timeoutId = null;
   };
 
   const flush = (): ReturnType<T> => {
-    return timeoutId === null ? result : trailingEdge(Date.now());
+    return timeoutId === null ? result : (timerExpired() as ReturnType<T>);
   };
 
   const debounced = function (
     this: any,
     ...args: Parameters<T>
   ): ReturnType<T> {
-    const time = Date.now();
-    const isInvoking = shouldInvoke(time);
-
     lastArgs = args;
     lastThis = this;
-    lastCallTime = time;
 
-    if (isInvoking) {
-      if (timeoutId === null) {
-        return leadingEdge(lastCallTime);
-      }
-      if (maxWait !== undefined) {
-        timeoutId = startTimer(timerExpired, wait);
-        return invokeFunc(lastCallTime);
-      }
-    }
     if (timeoutId === null) {
-      timeoutId = startTimer(timerExpired, wait);
+      return leadingEdge();
     }
+
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(timerExpired, wait);
+
     return result;
   } as T;
 
@@ -206,7 +152,7 @@ export async function retry<T>(
     } catch (error) {
       lastError = error;
       if (i < times - 1) {
-        await new Promise((resolve) => setTimeout(resolve, delay));
+        await new Promise(resolve => setTimeout(resolve, delay));
       }
     }
   }
@@ -220,7 +166,7 @@ export async function retry<T>(
  * @returns Promise
  */
 export function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /**

@@ -1,5 +1,3 @@
-import type { DateFormatOptions } from "../types";
-
 /**
  * 格式化日期
  * @param date 日期对象或时间戳
@@ -8,25 +6,25 @@ import type { DateFormatOptions } from "../types";
  */
 export function formatDate(
   date: Date | number | string,
-  format = "YYYY-MM-DD HH:mm:ss"
+  format = 'YYYY-MM-DD HH:mm:ss'
 ): string {
   const d = new Date(date);
 
   if (isNaN(d.getTime())) {
-    throw new Error("Invalid date");
+    throw new Error('Invalid date');
   }
 
   const tokens: Record<string, string> = {
     YYYY: d.getFullYear().toString(),
-    MM: (d.getMonth() + 1).toString().padStart(2, "0"),
-    DD: d.getDate().toString().padStart(2, "0"),
-    HH: d.getHours().toString().padStart(2, "0"),
-    mm: d.getMinutes().toString().padStart(2, "0"),
-    ss: d.getSeconds().toString().padStart(2, "0"),
-    SSS: d.getMilliseconds().toString().padStart(3, "0"),
+    MM: (d.getMonth() + 1).toString().padStart(2, '0'),
+    DD: d.getDate().toString().padStart(2, '0'),
+    HH: d.getHours().toString().padStart(2, '0'),
+    mm: d.getMinutes().toString().padStart(2, '0'),
+    ss: d.getSeconds().toString().padStart(2, '0'),
+    SSS: d.getMilliseconds().toString().padStart(3, '0'),
   };
 
-  return format.replace(/YYYY|MM|DD|HH|mm|ss|SSS/g, (match) => tokens[match]);
+  return format.replace(/YYYY|MM|DD|HH|mm|ss|SSS/g, match => tokens[match]);
 }
 
 /**
@@ -43,7 +41,7 @@ export function daysBetween(
   const d2 = new Date(date2);
 
   if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
-    throw new Error("Invalid date");
+    throw new Error('Invalid date');
   }
 
   const diffTime = d1.getTime() - d2.getTime();
@@ -92,7 +90,7 @@ export function startOfDay(date: Date | number | string): Date {
   const d = new Date(date);
 
   if (isNaN(d.getTime())) {
-    throw new Error("Invalid date");
+    throw new Error('Invalid date');
   }
 
   d.setHours(0, 0, 0, 0);
@@ -108,7 +106,7 @@ export function endOfDay(date: Date | number | string): Date {
   const d = new Date(date);
 
   if (isNaN(d.getTime())) {
-    throw new Error("Invalid date");
+    throw new Error('Invalid date');
   }
 
   d.setHours(23, 59, 59, 999);
@@ -125,7 +123,7 @@ export function addDays(date: Date | number | string, days: number): Date {
   const d = new Date(date);
 
   if (isNaN(d.getTime())) {
-    throw new Error("Invalid date");
+    throw new Error('Invalid date');
   }
 
   d.setDate(d.getDate() + days);
@@ -142,7 +140,7 @@ export function addMonths(date: Date | number | string, months: number): Date {
   const d = new Date(date);
 
   if (isNaN(d.getTime())) {
-    throw new Error("Invalid date");
+    throw new Error('Invalid date');
   }
 
   d.setMonth(d.getMonth() + months);
@@ -163,7 +161,7 @@ export function getRelativeTime(
   const base = baseDate ? new Date(baseDate) : new Date();
 
   if (isNaN(d.getTime()) || isNaN(base.getTime())) {
-    throw new Error("Invalid date");
+    throw new Error('Invalid date');
   }
 
   const diffMs = base.getTime() - d.getTime();
@@ -173,7 +171,7 @@ export function getRelativeTime(
   const diffDays = Math.floor(diffHours / 24);
 
   if (diffSecs < 60) {
-    return "刚刚";
+    return '刚刚';
   } else if (diffMins < 60) {
     return `${diffMins}分钟前`;
   } else if (diffHours < 24) {
@@ -181,6 +179,6 @@ export function getRelativeTime(
   } else if (diffDays < 7) {
     return `${diffDays}天前`;
   } else {
-    return formatDate(d, "YYYY-MM-DD");
+    return formatDate(d, 'YYYY-MM-DD');
   }
 }
