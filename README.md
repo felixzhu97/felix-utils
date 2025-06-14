@@ -5,10 +5,10 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![npm version](https://img.shields.io/npm/v/felix-utils.svg)
 ![npm downloads](https://img.shields.io/npm/dm/felix-utils.svg)
-![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/felix-utils/ci.yml?branch=main&label=Build%20and%20Test)
+![Build Status](https://img.shields.io/github/actions/workflow/status/felixzhu97/felix-utils/ci.yml?branch=main&label=Build%20and%20Test)
 ![TypeScript](<https://img.shields.io/badge/(Compiler)%20TypeScript-passing-green.svg>)
 ![Bundle Size](https://img.shields.io/bundlephobia/minzip/felix-utils)
-![Test Coverage](https://img.shields.io/codecov/c/github/yourusername/felix-utils)
+![Test Coverage](https://img.shields.io/codecov/c/github/felixzhu97/felix-utils)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 </div>
