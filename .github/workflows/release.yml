@@ -29,6 +29,21 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Check and update version if needed
+        run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          echo "Current version: $CURRENT_VERSION"
+
+          # Check if version already exists on npm
+          if npm view felix-utils@$CURRENT_VERSION version 2>/dev/null; then
+            echo "Version $CURRENT_VERSION already exists, updating to patch version"
+            npm version patch --no-git-tag-version
+            NEW_VERSION=$(node -p "require('./package.json').version")
+            echo "Updated to version: $NEW_VERSION"
+          else
+            echo "Version $CURRENT_VERSION is available for publishing"
+          fi
+
       - name: Publish to npm
         run: npm publish --access public
         env:
