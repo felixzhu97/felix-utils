@@ -1,6 +1,6 @@
 {
   "name": "felix-utils",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A collection of useful utility functions and date handling methods",
   "type": "module",
   "main": "dist/index.js",
