@@ -30,14 +30,29 @@ jobs:
       - name: Run linting
         run: npm run lint
 
-      - name: Run tests
-        run: npm test
+      - name: Run tests with coverage
+        run: npm run test:ci
 
       - name: Build project
         run: npm run build
 
-      - name: Generate test coverage
-        run: npm run test -- --coverage
+      - name: Coverage Report
+        if: matrix.node-version == '18.x'
+        run: |
+          echo "## Test Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo "Coverage threshold: 90%" >> $GITHUB_STEP_SUMMARY
+          if [ -f coverage/coverage-summary.json ]; then
+            node -e "
+              const coverage = require('./coverage/coverage-summary.json');
+              const total = coverage.total;
+              console.log('| Type | Coverage |');
+              console.log('|------|----------|');
+              console.log('| Statements | ' + total.statements.pct + '% |');
+              console.log('| Branches | ' + total.branches.pct + '% |');
+              console.log('| Functions | ' + total.functions.pct + '% |');
+              console.log('| Lines | ' + total.lines.pct + '% |');
+            " >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
