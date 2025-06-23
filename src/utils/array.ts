@@ -18,7 +18,7 @@ export function uniqueBy<T extends Record<string, any>, K extends keyof T>(
   key: K
 ): T[] {
   const seen = new Set();
-  return arr.filter((item) => {
+  return arr.filter(item => {
     const val = item[key];
     if (seen.has(val)) {
       return false;
@@ -87,7 +87,7 @@ export function flattenDeep<T>(arr: any[]): T[] {
  */
 export function intersection<T>(arr1: T[], arr2: T[]): T[] {
   const set2 = new Set(arr2);
-  return arr1.filter((item) => set2.has(item));
+  return arr1.filter(item => set2.has(item));
 }
 
 /**
@@ -98,7 +98,7 @@ export function intersection<T>(arr1: T[], arr2: T[]): T[] {
  */
 export function difference<T>(arr1: T[], arr2: T[]): T[] {
   const set2 = new Set(arr2);
-  return arr1.filter((item) => !set2.has(item));
+  return arr1.filter(item => !set2.has(item));
 }
 
 /**
@@ -120,7 +120,9 @@ export function shuffle<T>(arr: T[]): T[] {
   const result = [...arr];
   for (let i = result.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
+    const temp = result[i];
+    result[i] = result[j]!;
+    result[j] = temp!;
   }
   return result;
 }
@@ -148,14 +150,17 @@ export function groupBy<T extends Record<string, any>, K extends keyof T>(
   arr: T[],
   key: K
 ): Record<string, T[]> {
-  return arr.reduce((groups, item) => {
-    const groupKey = String(item[key]);
-    if (!groups[groupKey]) {
-      groups[groupKey] = [];
-    }
-    groups[groupKey].push(item);
-    return groups;
-  }, {} as Record<string, T[]>);
+  return arr.reduce(
+    (groups, item) => {
+      const groupKey = String(item[key]);
+      if (!groups[groupKey]) {
+        groups[groupKey] = [];
+      }
+      groups[groupKey].push(item);
+      return groups;
+    },
+    {} as Record<string, T[]>
+  );
 }
 
 /**
@@ -179,6 +184,6 @@ export function sumBy<T extends Record<string, any>>(
 ): number {
   return arr.reduce((acc, item) => {
     const val = item[key];
-    return acc + (typeof val === "number" ? val : 0);
+    return acc + (typeof val === 'number' ? val : 0);
   }, 0);
 }

@@ -24,7 +24,10 @@ export function formatDate(
     SSS: d.getMilliseconds().toString().padStart(3, '0'),
   };
 
-  return format.replace(/YYYY|MM|DD|HH|mm|ss|SSS/g, match => tokens[match]);
+  return format.replace(
+    /YYYY|MM|DD|HH|mm|ss|SSS/g,
+    match => tokens[match] || match
+  );
 }
 
 /**

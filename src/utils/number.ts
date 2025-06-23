@@ -36,10 +36,10 @@ export function formatNumber(num: number, precision = 2): string {
  * @param separator 分隔符
  * @returns 格式化后的字符串
  */
-export function formatThousands(num: number, separator = ","): string {
-  const parts = num.toString().split(".");
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, separator);
-  return parts.join(".");
+export function formatThousands(num: number, separator = ','): string {
+  const parts = num.toString().split('.');
+  parts[0] = parts[0]!.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+  return parts.join('.');
 }
 
 /**
@@ -49,7 +49,7 @@ export function formatThousands(num: number, separator = ","): string {
  * @returns 百分比字符串
  */
 export function toPercent(num: number, precision = 2): string {
-  return (num * 100).toFixed(precision) + "%";
+  return (num * 100).toFixed(precision) + '%';
 }
 
 /**
@@ -126,8 +126,8 @@ export function median(numbers: number[]): number {
   const mid = Math.floor(sorted.length / 2);
 
   return sorted.length % 2 === 0
-    ? (sorted[mid - 1] + sorted[mid]) / 2
-    : sorted[mid];
+    ? (sorted[mid - 1]! + sorted[mid]!) / 2
+    : sorted[mid]!;
 }
 
 /**
@@ -137,14 +137,14 @@ export function median(numbers: number[]): number {
  * @returns 文件大小字符串
  */
 export function formatFileSize(bytes: number, precision = 2): string {
-  if (bytes === 0) return "0 Bytes";
+  if (bytes === 0) return '0 Bytes';
 
   const k = 1024;
-  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB"];
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
   return (
-    parseFloat((bytes / Math.pow(k, i)).toFixed(precision)) + " " + sizes[i]
+    parseFloat((bytes / Math.pow(k, i)).toFixed(precision)) + ' ' + sizes[i]
   );
 }
 

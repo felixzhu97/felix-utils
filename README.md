@@ -24,32 +24,60 @@
 - ✅ 单元测试覆盖
 - 📖 详细的文档
 
-## 安装
+## 📦 安装
 
 ```bash
 npm install felix-utils
 ```
 
-或者使用 yarn：
+## 🚀 使用方法
 
-```bash
-yarn add felix-utils
-```
-
-## 使用方法
-
-### 导入方式
+### 完整导入
 
 ```javascript
-// 导入所有工具
-import * as felixUtils from 'felix-utils';
+import * as utils from 'felix-utils';
 
-// 导入特定模块
-import { formatDate, debounce, deepClone } from 'felix-utils';
+// 使用数组工具
+const uniqueArray = utils.unique([1, 2, 2, 3]);
 
-// 按需导入（推荐）
-import { formatDate } from 'felix-utils/date';
-import { debounce } from 'felix-utils/utils';
+// 使用日期工具
+const formatted = utils.formatDate(new Date());
+```
+
+### 按需导入（推荐）
+
+支持按需导入，减少打包体积：
+
+```javascript
+// 只导入数组工具
+import { unique, chunk, flatten } from 'felix-utils/array';
+
+// 只导入日期工具
+import { formatDate, daysBetween } from 'felix-utils/date';
+
+// 只导入字符串工具
+import { capitalize, camelCase } from 'felix-utils/string';
+
+// 只导入对象工具
+import { deepClone, omit, pick } from 'felix-utils/object';
+
+// 只导入数值工具
+import { random, clamp } from 'felix-utils/number';
+
+// 只导入函数工具
+import { debounce, throttle } from 'felix-utils/function';
+
+// 只导入验证工具
+import { isEmail, isPhone } from 'felix-utils/validate';
+```
+
+### 子模块导入
+
+```javascript
+// 导入整个子模块
+import * as arrayUtils from 'felix-utils/array';
+import * as dateUtils from 'felix-utils/date';
+import * as stringUtils from 'felix-utils/string';
 ```
 
 ## 功能模块

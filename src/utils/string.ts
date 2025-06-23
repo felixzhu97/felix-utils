@@ -79,11 +79,11 @@ export function trim(str: string, chars?: string): string {
   let start = 0;
   let end = str.length - 1;
 
-  while (start <= end && charSet.has(str[start])) {
+  while (start <= end && charSet.has(str[start]!)) {
     start++;
   }
 
-  while (end >= start && charSet.has(str[end])) {
+  while (end >= start && charSet.has(str[end]!)) {
     end--;
   }
 
@@ -172,7 +172,7 @@ export function escapeHtml(str: string): string {
     "'": '&#39;',
   };
 
-  return str.replace(/[&<>"']/g, char => htmlEscapes[char]);
+  return str.replace(/[&<>"']/g, char => htmlEscapes[char] || char);
 }
 
 /**
@@ -191,7 +191,7 @@ export function unescapeHtml(str: string): string {
 
   return str.replace(
     /&(?:amp|lt|gt|quot|#39);/g,
-    entity => htmlUnescapes[entity]
+    entity => htmlUnescapes[entity] || entity
   );
 }
 

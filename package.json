@@ -3,14 +3,49 @@
   "version": "1.0.3",
   "description": "A collection of useful utility functions and date handling methods",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js"
+    },
+    "./array": {
+      "types": "./dist/utils/array.d.ts",
+      "import": "./dist/utils/array.esm.js"
+    },
+    "./object": {
+      "types": "./dist/utils/object.d.ts",
+      "import": "./dist/utils/object.esm.js"
+    },
+    "./string": {
+      "types": "./dist/utils/string.d.ts",
+      "import": "./dist/utils/string.esm.js"
+    },
+    "./function": {
+      "types": "./dist/utils/function.d.ts",
+      "import": "./dist/utils/function.esm.js"
+    },
+    "./number": {
+      "types": "./dist/utils/number.d.ts",
+      "import": "./dist/utils/number.esm.js"
+    },
+    "./validate": {
+      "types": "./dist/utils/validate.d.ts",
+      "import": "./dist/utils/validate.esm.js"
+    },
+    "./date": {
+      "types": "./dist/date/index.d.ts",
+      "import": "./dist/date/index.esm.js"
+    }
+  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "npm run clean && rollup -c",
+    "build:min": "npm run clean && NODE_ENV=production rollup -c",
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -20,7 +55,7 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
-    "prepublishOnly": "npm run clean && npm run lint && npm run typecheck && npm run test && npm run build",
+    "prepublishOnly": "npm run clean && npm run lint && npm run typecheck && npm run test && npm run build:min",
     "release": "npm version patch && git push && git push --tags",
     "release:minor": "npm version minor && git push && git push --tags",
     "release:major": "npm version major && git push && git push --tags",
@@ -42,6 +77,7 @@
   "author": "Felix Zhu",
   "license": "MIT",
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "@types/jest": "^29.5.5",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^6.7.2",

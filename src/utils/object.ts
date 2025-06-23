@@ -4,7 +4,7 @@
  * @returns 深拷贝后的对象
  */
 export function deepClone<T>(obj: T): T {
-  if (obj === null || typeof obj !== "object") {
+  if (obj === null || typeof obj !== 'object') {
     return obj;
   }
 
@@ -17,7 +17,7 @@ export function deepClone<T>(obj: T): T {
   }
 
   if (Array.isArray(obj)) {
-    return obj.map((item) => deepClone(item)) as T;
+    return obj.map(item => deepClone(item)) as T;
   }
 
   const cloned = {} as any;
@@ -37,9 +37,9 @@ export function deepClone<T>(obj: T): T {
  */
 export function isEmpty(obj: any): boolean {
   if (obj == null) return true;
-  if (Array.isArray(obj) || typeof obj === "string") return obj.length === 0;
+  if (Array.isArray(obj) || typeof obj === 'string') return obj.length === 0;
   if (obj instanceof Map || obj instanceof Set) return obj.size === 0;
-  if (typeof obj === "object") return Object.keys(obj).length === 0;
+  if (typeof obj === 'object') return Object.keys(obj).length === 0;
   return false;
 }
 
@@ -51,15 +51,15 @@ export function isEmpty(obj: any): boolean {
  * @returns 属性值
  */
 export function get<T = any>(obj: any, path: string, defaultValue?: T): T {
-  if (!obj || typeof path !== "string") {
+  if (!obj || typeof path !== 'string') {
     return defaultValue as T;
   }
 
-  const keys = path.split(".");
+  const keys = path.split('.');
   let result = obj;
 
   for (const key of keys) {
-    if (result == null || typeof result !== "object") {
+    if (result == null || typeof result !== 'object') {
       return defaultValue as T;
     }
     result = result[key];
@@ -75,18 +75,20 @@ export function get<T = any>(obj: any, path: string, defaultValue?: T): T {
  * @param value 要设置的值
  */
 export function set(obj: any, path: string, value: any): void {
-  if (!obj || typeof path !== "string") {
+  if (!obj || typeof path !== 'string') {
     return;
   }
 
-  const keys = path.split(".");
+  const keys = path.split('.');
   let current = obj;
 
   for (let i = 0; i < keys.length - 1; i++) {
     const key = keys[i];
+    if (!key) continue;
+
     if (
       !(key in current) ||
-      typeof current[key] !== "object" ||
+      typeof current[key] !== 'object' ||
       current[key] === null
     ) {
       current[key] = {};
@@ -94,7 +96,10 @@ export function set(obj: any, path: string, value: any): void {
     current = current[key];
   }
 
-  current[keys[keys.length - 1]] = value;
+  const lastKey = keys[keys.length - 1];
+  if (lastKey) {
+    current[lastKey] = value;
+  }
 }
 
 /**
@@ -158,8 +163,8 @@ export function merge<T extends Record<string, any>>(
         if (
           sourceValue &&
           targetValue &&
-          typeof sourceValue === "object" &&
-          typeof targetValue === "object" &&
+          typeof sourceValue === 'object' &&
+          typeof targetValue === 'object' &&
           !Array.isArray(sourceValue) &&
           !Array.isArray(targetValue)
         ) {
